@@ -19,7 +19,10 @@
 
 #include "PrimeGenerator.h"
 #include <string>
-#include <cstdlib> // rand()
+#include <cstdlib>
+#include <random>
+
+std::random_device rd;
 
 /* Generates a random number with digitCount digits.
  * Returns it by reference in the "number" parameter. */
@@ -34,7 +37,7 @@ void PrimeGenerator::MakeRandom(BigInt &number, unsigned long int digitCount)
 	//generate random digits
 	while (tempDigitCount < digitCount)
 	{
-		unsigned long int newRand(std::rand());
+		unsigned long int newRand(rd());
 
 		//10 is chosen to skip the first digit, because it might be 
 		//statistically <= n, where n is the first digit of RAND_MAX
@@ -49,7 +52,7 @@ void PrimeGenerator::MakeRandom(BigInt &number, unsigned long int digitCount)
 
 	//make sure the leading digit is not zero
 	if (newNum[0] == '0')
-		newNum[0] = (std::rand() % 9) + 1 + '0';
+		newNum[0] = (rd() % 9) + 1 + '0';
 	number = newNum;
 }
 
@@ -76,7 +79,7 @@ void PrimeGenerator::makePrimeCandidate(BigInt &number,
 		number.SetDigit(0, number.GetDigit(0) + 1);
 	//make sure the leading digit is not a zero
 	if (number.GetDigit(number.Length() - 1) == 0)
-		number.SetDigit(number.Length() - 1, (std::rand() % 9) + 1);
+		number.SetDigit(number.Length() - 1, (rd() % 9) + 1);
 }
 
 /* Tests the primality of the given _odd_ number using the 

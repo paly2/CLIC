@@ -11,7 +11,6 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-#include <ctime>
 #include "../rsa/RSA.h"
 #include "../Blowfish/blowfish.h"
 
@@ -59,7 +58,6 @@ waiting_client:
 	
 	// ENCRYPTION INITIALIZATION
 	cout << "Generating RSA key pair... " << endl;
-	srand(time(NULL)); // Initialize random for the RSA prime generator.
 	KeyPair key_pair(RSA::GenerateKeyPair(20));
 	cout << "RSA public key : " << key_pair.GetPublicKey().GetModulus() << " " << key_pair.GetPublicKey().GetExponent() << endl << "RSA private key : " << key_pair.GetPrivateKey().GetModulus() << " " << key_pair.GetPrivateKey().GetExponent() << endl;
 	
